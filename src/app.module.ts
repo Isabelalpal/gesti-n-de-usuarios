@@ -6,13 +6,14 @@ import { databaseConfig } from './config/database.config';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      isGlobal: true,
+      isGlobal: true, 
+      envFilePath: '.env', 
     }),
     MongooseModule.forRootAsync({
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => {
-        // Obtener la URI del ConfigService pero usar las opciones de databaseConfig
-        const uri = configService.get('MONGODB_URI');
+        const uri = configService.get<string>('MONGODB_URI');
+        
         return {
           uri,
           ...databaseConfig.options,
