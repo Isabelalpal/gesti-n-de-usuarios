@@ -2,6 +2,7 @@ import { LoginDto, CreateUserDto, ChangePasswordDto, UpdateUserDto} from '../dto
 export interface User {
     id: string;
     email: string;
+    code: string;
     name: string;
     role: string;
     isVerified: boolean; // Cuenta verificada, true si se verifico y false sino
@@ -17,7 +18,7 @@ export interface UserService {
     findByEmail(email: string): Promise<User>;
     update(id: string, updateUserDto: UpdateUserDto): Promise<User>;
     remove(id: string): Promise<void>;
-    verifyUser(id: string): Promise<User>;
+    verifyUser(id: string, code: string): Promise<User>;
     login(
         loginDto: LoginDto,
     ): Promise<{ accessToken: string; refreshToken: string; user: User }>;
